@@ -1,0 +1,1 @@
+{ "name": "clean-web-proxy", "version": "1.0.0", "description": "A web proxy that runs locally to browse websites without browser extensions interfering", "main": "server.js", "scripts": { "start": "node server.js", "dev": "node server.js" }, "keywords": ["proxy", "web-proxy", "extension-free", "localhost"], "author": "bjward-mhs", "license": "MIT" }
