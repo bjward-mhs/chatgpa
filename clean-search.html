@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean Search - Plugin Free Browsing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            background: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .main-logo {
+            font-size: 72px;
+            margin-bottom: 20px;
+            font-weight: 400;
+            letter-spacing: -2px;
+        }
+
+        .main-logo .c { color: #4285f4; }
+        .main-logo .l { color: #ea4335; }
+        .main-logo .e { color: #fbbc04; }
+        .main-logo .a { color: #34a853; }
+        .main-logo .n { color: #ea4335; }
+        .main-logo .s { color: #4285f4; }
+
+        .tagline {
+            color: #70757a;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .info-bar {
+            background: #e8f5e9;
+            border-left: 4px solid #34a853;
+            padding: 12px 16px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+            color: #1b5e20;
+            font-size: 14px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 1px solid #dfe1e5;
+            font-size: 16px;
+            outline: none;
+            border-radius: 24px;
+        }
+
+        .search-input:hover {
+            box-shadow: 0 1px 6px rgba(32,33,36,.28);
+        }
+
+        .search-input:focus {
+            box-shadow: 0 1px 6px rgba(32,33,36,.28);
+            border-color: transparent;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 24px;
+            background: #f8f9fa;
+            border: 1px solid #f8f9fa;
+            border-radius: 4px;
+            color: #3c4043;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+            background: #f8f9fa;
+            border: 1px solid #dadce0;
+            color: #202124;
+        }
+
+        .quick-links {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .quick-link {
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #1f2937;
+            font-size: 14px;
+            text-align: center;
+            transition: all 0.2s;
+            display: block;
+        }
+
+        .quick-link:hover {
+            background: #f0f0f0;
+            border-color: #9aa0a6;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 13px;
+            color: #70757a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="info-bar">
+            🛡️ All plugins blocked - Pure browsing experience
+        </div>
+
+        <div class="main-logo">
+            <span class="c">C</span><span class="l">l</span><span class="e">e</span><span class="a">a</span><span class="n">S</span>
+        </div>
+
+        <p class="tagline">Browse any website without plugins interfering</p>
+
+        <form onsubmit="handleSearch(event)" style="width: 100%; max-width: 600px;">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    id="urlInput" 
+                    placeholder="Enter website URL or search..." 
+                    required
+                    autofocus
+                >
+            </div>
+
+            <div class="button-group">
+                <button type="submit">🔍 Clean Search</button>
+                <button type="button" onclick="openDirectly()">🌐 I'm Feeling Lucky</button>
+            </div>
+        </form>
+
+        <div class="quick-links">
+            <a class="quick-link" href="javascript:visitSite('https://google.com')">Google</a>
+            <a class="quick-link" href="javascript:visitSite('https://youtube.com')">YouTube</a>
+            <a class="quick-link" href="javascript:visitSite('https://github.com')">GitHub</a>
+            <a class="quick-link" href="javascript:visitSite('https://reddit.com')">Reddit</a>
+            <a class="quick-link" href="javascript:visitSite('https://wikipedia.org')">Wikipedia</a>
+            <a class="quick-link" href="javascript:visitSite('https://twitter.com')">Twitter</a>
+        </div>
+
+        <div class="footer">
+            🔒 Plugin-free browsing • Powered by Clean Search
+        </div>
+    </div>
+
+    <script>
+        function normalizeURL(input) {
+            // If it looks like a search query, search Google
+            if (!input.includes('.') && !input.includes('/')) {
+                return `https://www.google.com/search?q=${encodeURIComponent(input)}`;
+            }
+
+            // Add https:// if no protocol
+            if (!input.startsWith('http://') && !input.startsWith('https://')) {
+                if (input.includes('.')) {
+                    return `https://${input}`;
+                }
+                return `https://www.google.com/search?q=${encodeURIComponent(input)}`;
+            }
+
+            return input;
+        }
+
+        function visitSite(url) {
+            const proxyUrl = `http://127.0.0.1:3000/?url=${encodeURIComponent(url)}`;
+            window.open(proxyUrl, '_blank');
+        }
+
+        function handleSearch(event) {
+            event.preventDefault();
+            const input = document.getElementById('urlInput').value;
+            const url = normalizeURL(input);
+            visitSite(url);
+        }
+
+        function openDirectly() {
+            const input = document.getElementById('urlInput').value;
+            if (!input) {
+                visitSite('https://google.com');
+                return;
+            }
+            const url = normalizeURL(input);
+            visitSite(url);
+        }
+
+        // Focus input on page load
+        document.getElementById('urlInput').focus();
+    </script>
+</body>
+</html>
