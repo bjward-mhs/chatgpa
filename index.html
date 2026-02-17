@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QuickCollect — Get Paid Faster</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #22c55e;
+      --border: #1f2937;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 48px 20px; }
+    header { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .brand { font-weight: 700; font-size: 1.25rem; letter-spacing: 0.3px; }
+    .cta {
+      display: inline-block;
+      background: var(--accent);
+      color: #0b1220;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+    .hero { margin-top: 48px; display: grid; gap: 24px; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); margin: 0; }
+    .hero p { color: var(--muted); font-size: 1.1rem; max-width: 720px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: 16px;
+    }
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .pricing { margin-top: 40px; }
+    .price { font-size: 2rem; font-weight: 800; }
+    .muted { color: var(--muted); }
+    footer { margin-top: 60px; color: var(--muted); font-size: 0.95rem; }
+    .tag { display: inline-block; background: #0b1220; border: 1px solid var(--border); padding: 6px 10px; border-radius: 999px; color: var(--muted); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">QuickCollect</div>
+      <a class="cta" href="#">Get Started</a>
+    </header>
+
+    <section class="hero">
+      <div>
+        <span class="tag">For Contractors</span>
+        <h1>Get paid faster with done-for-you invoice follow-ups.</h1>
+        <p>QuickCollect automates email and text reminders while we run follow-ups for you — so you stop chasing checks and keep cash moving.</p>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>What you get</h3>
+          <ul>
+            <li>Invoice tracker with status updates</li>
+            <li>Automated email + text reminders</li>
+            <li>Dispute and promise-to-pay tracking</li>
+            <li>Weekly cashflow recovery report</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Setup</h3>
+          <p class="muted">Simple onboarding with a low $30 setup fee.</p>
+          <p class="muted">We’ll import your invoices and start follow-ups fast.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing">
+      <h2>Pricing</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Tier 1</h3>
+          <div class="price">$399<span class="muted">/mo</span></div>
+          <p class="muted">Best for small teams.</p>
+        </div>
+        <div class="card">
+          <h3>Tier 2</h3>
+          <div class="price">$699<span class="muted">/mo</span></div>
+          <p class="muted">For growing businesses.</p>
+        </div>
+        <div class="card">
+          <h3>Tier 3</h3>
+          <div class="price">$999<span class="muted">/mo</span></div>
+          <p class="muted">For high-volume operations.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top: 32px;">
+      <h2>Ready to get started?</h2>
+      <p class="muted">Click below and we’ll help you recover cash fast.</p>
+      <a class="cta" href="#">Get Started</a>
+    </section>
+
+    <footer>
+      Contact: <a href="mailto:fetchrevenue@gmail.com" style="color: var(--text);">fetchrevenue@gmail.com</a>
+    </footer>
+  </div>
+</body>
+</html>
