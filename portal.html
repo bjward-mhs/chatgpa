@@ -45,6 +45,7 @@
       background: rgba(239, 68, 68, 0.1);
       border-color: rgba(239, 68, 68, 0.3);
       color: #fca5a5;
+      cursor: pointer;
     }
     .nav-link.logout:hover {
       background: rgba(239, 68, 68, 0.2);
@@ -196,26 +197,38 @@
   </div>
 
   <script>
+    // Initialize Supabase
+    const { createClient } = supabase;
     const supabaseUrl = 'https://qvgshetcdvyticehwqfu.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2Z3NoZXRjZHZ5dGljZWh3cWZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MTM2OTQsImV4cCI6MjA4Njk4OTY5NH0.Go1d3KdroHX-Gnm-4H2LTKU80ZCXtD0E8rDbyuhpeQs';
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
     async function checkAuth() {
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (!user) {
-        window.location.href = 'login.html';
-        return;
-      }
+      try {
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        
+        if (!user) {
+          window.location.href = 'login.html';
+          return;
+        }
 
-      document.getElementById('user-email').textContent = user.email;
-      document.getElementById('content').style.display = 'block';
+        document.getElementById('user-email').textContent = user.email;
+        document.getElementById('content').style.display = 'block';
+      } catch (error) {
+        console.error('Auth check error:', error);
+        window.location.href = 'login.html';
+      }
     }
 
     document.getElementById('logout-btn').addEventListener('click', async (e) => {
       e.preventDefault();
-      await supabase.auth.signOut();
-      window.location.href = 'login.html';
+      try {
+        await supabaseClient.auth.signOut();
+        window.location.href = 'login.html';
+      } catch (error) {
+        console.error('Logout error:', error);
+        window.location.href = 'login.html';
+      }
     });
 
     checkAuth();
