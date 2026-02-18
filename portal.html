@@ -23,7 +23,7 @@
       color: var(--text);
       line-height: 1.6;
     }
-    .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px 64px; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 40px 24px 64px; }
     header { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
     .brand { font-weight: 800; font-size: 1.6rem; letter-spacing: 0.5px; }
     .nav-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
@@ -41,9 +41,9 @@
       border-color: var(--accent);
       background: rgba(34, 197, 94, 0.08);
     }
-    .hero { margin-top: 32px; display: grid; gap: 24px; }
+    .hero { margin-top: 28px; display: grid; gap: 16px; }
     .hero h1 { font-size: clamp(2rem, 4vw, 2.8rem); margin: 0; }
-    .hero p { color: var(--muted); max-width: 700px; }
+    .hero p { color: var(--muted); max-width: 720px; }
     .card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -58,6 +58,33 @@
     }
     .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
     .tag { display: inline-block; background: #0b1220; border: 1px solid var(--border); padding: 6px 10px; border-radius: 999px; color: var(--muted); font-size: 0.9rem; }
+    .stat-value { font-size: 2rem; font-weight: 800; margin: 0; }
+    .stat-label { color: var(--muted); font-size: 0.95rem; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #0b1220;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+    .list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #0b1220;
+    }
+    .list strong { display: block; }
+    .split { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
   </style>
 </head>
 <body>
@@ -74,22 +101,86 @@
     <section class="hero">
       <div>
         <span class="tag">Client Portal</span>
-        <h1>Your dashboard is on the way.</h1>
-        <p>We’re building a focused portal for invoice status, dispute tracking, and weekly recovery reporting. This placeholder shows what’s coming next.</p>
+        <h1>Recovery dashboard overview.</h1>
+        <p>Here’s a preview of the reporting clients will see once their access is approved. Data shown below is placeholder to illustrate layout.</p>
       </div>
-      <div class="grid">
-        <div class="card">
-          <h3>Dashboard preview</h3>
-          <p class="muted">Summary of invoices, promises-to-pay, and account health at a glance.</p>
-        </div>
-        <div class="card">
-          <h3>Follow-up timeline</h3>
-          <p class="muted">See every reminder, conversation, and next action in one place.</p>
-        </div>
-        <div class="card">
-          <h3>Weekly report</h3>
-          <p class="muted">A clean recap of recovered dollars and upcoming risks.</p>
-        </div>
+    </section>
+
+    <section class="grid" style="margin-top: 24px;">
+      <div class="card">
+        <p class="stat-value">$42,800</p>
+        <div class="stat-label">Recovered this month</div>
+        <div class="pill" style="margin-top: 12px;">+18% vs. last month</div>
+      </div>
+      <div class="card">
+        <p class="stat-value">17</p>
+        <div class="stat-label">Invoices due this week</div>
+        <div class="pill" style="margin-top: 12px;">8 follow-ups scheduled</div>
+      </div>
+      <div class="card">
+        <p class="stat-value">9</p>
+        <div class="stat-label">Promises to pay</div>
+        <div class="pill" style="margin-top: 12px;">Next check-in: Thu</div>
+      </div>
+      <div class="card">
+        <p class="stat-value">4</p>
+        <div class="stat-label">Disputes in review</div>
+        <div class="pill" style="margin-top: 12px;">2 awaiting docs</div>
+      </div>
+    </section>
+
+    <section class="split" style="margin-top: 24px;">
+      <div class="card">
+        <h2>Recent activity</h2>
+        <ul class="list">
+          <li>
+            <div>
+              <strong>Invoice #4821 — Follow-up sent</strong>
+              <span class="stat-label">Acme Roofing · 2 hours ago</span>
+            </div>
+            <span class="pill">Email</span>
+          </li>
+          <li>
+            <div>
+              <strong>Invoice #4793 — Promise to pay</strong>
+              <span class="stat-label">Blue Ridge HVAC · Today</span>
+            </div>
+            <span class="pill">Text</span>
+          </li>
+          <li>
+            <div>
+              <strong>Invoice #4760 — Dispute logged</strong>
+              <span class="stat-label">Midtown Builders · Yesterday</span>
+            </div>
+            <span class="pill">Review</span>
+          </li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Invoices due soon</h2>
+        <ul class="list">
+          <li>
+            <div>
+              <strong>#4872 · $6,200</strong>
+              <span class="stat-label">Due in 3 days · Summit Concrete</span>
+            </div>
+            <span class="pill">Pending</span>
+          </li>
+          <li>
+            <div>
+              <strong>#4851 · $4,050</strong>
+              <span class="stat-label">Due in 5 days · Ridgeway Glass</span>
+            </div>
+            <span class="pill">Pending</span>
+          </li>
+          <li>
+            <div>
+              <strong>#4830 · $9,880</strong>
+              <span class="stat-label">Due in 6 days · Harbor Electric</span>
+            </div>
+            <span class="pill">Pending</span>
+          </li>
+        </ul>
       </div>
     </section>
   </div>
