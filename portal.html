@@ -41,6 +41,15 @@
       border-color: var(--accent);
       background: rgba(34, 197, 94, 0.08);
     }
+    .nav-link.logout {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+    }
+    .nav-link.logout:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.5);
+    }
     .hero { margin-top: 28px; display: grid; gap: 16px; }
     .hero h1 { font-size: clamp(2rem, 4vw, 2.8rem); margin: 0; }
     .hero p { color: var(--muted); max-width: 720px; }
@@ -85,16 +94,17 @@
     }
     .list strong { display: block; }
     .split { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    #content { display: none; }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-  <div class="container">
+  <div id="content" class="container">
     <header>
       <div class="brand">QuickCollect</div>
       <div class="nav-actions">
-        <a class="nav-link" href="index.html">Home</a>
-        <a class="nav-link" href="login.html">Client Login</a>
-        <a class="nav-link" href="signup.html">Client Signup</a>
+        <span id="user-email" class="nav-link" style="cursor: default;"></span>
+        <a class="nav-link logout" href="#" id="logout-btn">Logout</a>
       </div>
     </header>
 
@@ -102,7 +112,7 @@
       <div>
         <span class="tag">Client Portal</span>
         <h1>Recovery dashboard overview.</h1>
-        <p>Here’s a preview of the reporting clients will see once their access is approved. Data shown below is placeholder to illustrate layout.</p>
+        <p>Here's a preview of the reporting clients will see once their access is approved. Data shown below is placeholder to illustrate layout.</p>
       </div>
     </section>
 
@@ -184,5 +194,31 @@
       </div>
     </section>
   </div>
+
+  <script>
+    const supabaseUrl = 'https://qvgshetcdvyticehwqfu.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2Z3NoZXRjZHZ5dGljZWh3cWZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MTM2OTQsImV4cCI6MjA4Njk4OTY5NH0.Go1d3KdroHX-Gnm-4H2LTKU80ZCXtD0E8rDbyuhpeQs';
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+    async function checkAuth() {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      document.getElementById('user-email').textContent = user.email;
+      document.getElementById('content').style.display = 'block';
+    }
+
+    document.getElementById('logout-btn').addEventListener('click', async (e) => {
+      e.preventDefault();
+      await supabase.auth.signOut();
+      window.location.href = 'login.html';
+    });
+
+    checkAuth();
+  </script>
 </body>
 </html>
