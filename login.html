@@ -97,10 +97,24 @@
       transform: translateY(-2px);
       box-shadow: 0 16px 36px rgba(34, 197, 94, 0.35);
     }
+    .cta:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
     .helper-links { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.95rem; }
     .helper-links a { color: var(--accent); text-decoration: none; }
     .tag { display: inline-block; background: #0b1220; border: 1px solid var(--border); padding: 6px 10px; border-radius: 999px; color: var(--muted); font-size: 0.9rem; }
+    .error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+    }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <div class="container">
@@ -118,7 +132,8 @@
         <span class="tag">Client Login</span>
         <h1>Welcome back.</h1>
         <p class="muted">Sign in to view invoice statuses, follow-up activity, and recovery reporting.</p>
-        <form>
+        <div id="error-message" style="display: none;" class="error"></div>
+        <form id="login-form">
           <div>
             <label for="email">Email address</label>
             <input id="email" name="email" type="email" placeholder="you@company.com" required />
@@ -127,7 +142,7 @@
             <label for="password">Password</label>
             <input id="password" name="password" type="password" placeholder="••••••••" required />
           </div>
-          <button class="cta" type="submit">Sign in</button>
+          <button class="cta" type="submit" id="submit-btn">Sign in</button>
         </form>
         <div class="helper-links" style="margin-top: 16px;">
           <a href="mailto:fetchrevenue@gmail.com">Need access?</a>
@@ -136,7 +151,7 @@
       </div>
 
       <div class="card">
-        <h2>What’s inside the portal</h2>
+        <h2>What's inside the portal</h2>
         <p class="muted">Track every invoice and follow-up in one place, plus weekly recovery snapshots.</p>
         <ul>
           <li>Invoice status dashboard</li>
@@ -147,5 +162,40 @@
       </div>
     </section>
   </div>
+
+  <script>
+    const supabaseUrl = 'https://qvgshetcdvyticehwqfu.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2Z3NoZXRjZHZ5dGljZWh3cWZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MTM2OTQsImV4cCI6MjA4Njk4OTY5NH0.Go1d3KdroHX-Gnm-4H2LTKU80ZCXtD0E8rDbyuhpeQs';
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+    const form = document.getElementById('login-form');
+    const errorDiv = document.getElementById('error-message');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      errorDiv.style.display = 'none';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Signing in...';
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+      if (error) {
+        errorDiv.textContent = error.message;
+        errorDiv.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign in';
+      } else {
+        window.location.href = 'portal.html';
+      }
+    });
+  </script>
 </body>
 </html>
