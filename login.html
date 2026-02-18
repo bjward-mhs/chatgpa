@@ -112,6 +112,7 @@
       padding: 12px 14px;
       border-radius: 12px;
       font-size: 0.95rem;
+      margin-top: 12px;
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -164,9 +165,11 @@
   </div>
 
   <script>
+    // Initialize Supabase
+    const { createClient } = supabase;
     const supabaseUrl = 'https://qvgshetcdvyticehwqfu.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2Z3NoZXRjZHZ5dGljZWh3cWZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MTM2OTQsImV4cCI6MjA4Njk4OTY5NH0.Go1d3KdroHX-Gnm-4H2LTKU80ZCXtD0E8rDbyuhpeQs';
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
     const form = document.getElementById('login-form');
     const errorDiv = document.getElementById('error-message');
@@ -178,22 +181,47 @@
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
 
+      // Hide previous errors
       errorDiv.style.display = 'none';
+      
+      // Disable button and show loading
       submitBtn.disabled = true;
       submitBtn.textContent = 'Signing in...';
 
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password
-      });
+      try {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
 
-      if (error) {
-        errorDiv.textContent = error.message;
+        if (error) {
+          // Show user-friendly error messages
+          let errorMessage = 'Sign in failed. ';
+          
+          if (error.message.includes('Invalid login credentials')) {
+            errorMessage += 'The email or password you entered is incorrect.';
+          } else if (error.message.includes('Email not confirmed')) {
+            errorMessage += 'Please confirm your email address first.';
+          } else if (error.message.includes('User not found')) {
+            errorMessage += 'No account found with this email address.';
+          } else {
+            errorMessage += error.message;
+          }
+          
+          errorDiv.textContent = errorMessage;
+          errorDiv.style.display = 'block';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Sign in';
+        } else {
+          // Success - redirect to portal
+          window.location.href = 'portal.html';
+        }
+      } catch (err) {
+        errorDiv.textContent = 'An unexpected error occurred. Please try again.';
         errorDiv.style.display = 'block';
         submitBtn.disabled = false;
         submitBtn.textContent = 'Sign in';
-      } else {
-        window.location.href = 'portal.html';
+        console.error('Login error:', err);
       }
     });
   </script>
