@@ -74,8 +74,26 @@
     .msg-error { color: #ef4444; background: rgba(239,68,68,0.09); border: 1px solid #7f1d1d; border-radius: 9px; padding: 8px 10px; margin-top: 8px;}
     .msg-success { color: #22c55e; background: rgba(34,197,94,0.09); border: 1px solid #14532d; border-radius: 9px; padding: 8px 10px; margin-top: 8px;}
     .footer-links-reset {text-align:center; margin-top:48px;}
-    .footer-links-reset a { color:var(--accent);text-decoration:none;padding:8px 18px;}
-    .footer-links-reset a:hover { text-decoration: underline; }
+    .cta-green {
+      display: inline-block;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(90deg, #22c55e 0%, #16a34a 85%);
+      padding: 10px 22px;
+      border-radius: 10px;
+      text-decoration: none;
+      margin: 0 8px;
+      border: none;
+      font-size: 1.05rem;
+      box-shadow: 0 4px 22px rgba(34,197,94,0.14);
+      transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+      letter-spacing: 0.05em;
+    }
+    .cta-green:hover, .cta-green:focus {
+      background: #16a34a;
+      color: #eefafb;
+      box-shadow: 0 8px 28px rgba(34,197,94,0.22);
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -104,8 +122,8 @@
     </div>
   </div>
   <div class="footer-links-reset">
-    <a href="login.html">Back to Login</a>
-    <a href="signup.html">Sign Up</a>
+    <a class="cta-green" href="login.html">Client Login</a>
+    <a class="cta-green" href="signup.html">Sign Up</a>
   </div>
   <script>
     // SUPABASE CONFIG
@@ -113,14 +131,12 @@
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2Z3NoZXRjZHZ5dGljZWh3cWZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MTM2OTQsImV4cCI6MjA4Njk4OTY5NH0.Go1d3KdroHX-Gnm-4H2LTKU80ZCXtD0E8rDbyuhpeQs';
     const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-    // Utility for parsing hash fragment for oobCode/access_token
     function getResetType() {
       const hash = window.location.hash;
       if (hash.includes('type=recovery')) return 'reset';
       return 'request';
     }
 
-    // Password reset form (with access token in URL)
     async function submitNewPassword(event) {
       event.preventDefault();
       const newPassword = document.getElementById('new-password').value;
@@ -138,7 +154,6 @@
       }
     }
 
-    // Request reset email (when visiting /reset.html directly)
     async function sendResetEmail() {
       const email = document.getElementById('reset-email').value;
       document.getElementById('btn-request').disabled = true;
@@ -157,14 +172,11 @@
       }
     }
 
-    // Determine page mode on load: password reset or email request
     window.addEventListener('DOMContentLoaded', () => {
       if (getResetType() === 'reset') {
-        // User came from email link (has #access_token in URL)
         document.getElementById('step-reset').style.display = '';
         document.getElementById('reset-form').addEventListener('submit', submitNewPassword);
       } else {
-        // Show request form
         document.getElementById('step-request').style.display = '';
         document.getElementById('btn-request').addEventListener('click', sendResetEmail);
       }
