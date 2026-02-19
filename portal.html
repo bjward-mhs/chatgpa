@@ -95,6 +95,35 @@
     }
     .list strong { display: block; }
     .split { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .cta {
+      display: inline-block;
+      background: var(--accent);
+      color: #0b1220;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      box-shadow: 0 10px 30px rgba(34, 197, 94, 0.2);
+      border: none;
+      cursor: pointer;
+    }
+    .cta:hover {
+      background: var(--accent-strong);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(34, 197, 94, 0.35);
+    }
+    .locked-content {
+      filter: blur(4px);
+      opacity: 0.55;
+      pointer-events: none;
+      user-select: none;
+    }
+    .unlock-card {
+      display: grid;
+      gap: 12px;
+      align-items: start;
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -112,91 +141,98 @@
       <div>
         <span class="tag">Client Portal</span>
         <h1>Recovery dashboard overview.</h1>
-        <p>Here's a preview of the reporting clients will see once their access is approved. Data shown below is placeholder to illustrate layout.</p>
+        <p>You’re seeing a preview. Unlock full access to activate follow-ups, reporting, and your weekly recovery summaries.</p>
       </div>
     </section>
 
-    <section class="grid" style="margin-top: 24px;">
-      <div class="card">
-        <p class="stat-value">$42,800</p>
-        <div class="stat-label">Recovered this month</div>
-        <div class="pill" style="margin-top: 12px;">+18% vs. last month</div>
-      </div>
-      <div class="card">
-        <p class="stat-value">17</p>
-        <div class="stat-label">Invoices due this week</div>
-        <div class="pill" style="margin-top: 12px;">8 follow-ups scheduled</div>
-      </div>
-      <div class="card">
-        <p class="stat-value">9</p>
-        <div class="stat-label">Promises to pay</div>
-        <div class="pill" style="margin-top: 12px;">Next check-in: Thu</div>
-      </div>
-      <div class="card">
-        <p class="stat-value">4</p>
-        <div class="stat-label">Disputes in review</div>
-        <div class="pill" style="margin-top: 12px;">2 awaiting docs</div>
-      </div>
+    <section class="card unlock-card" style="margin-top: 20px;">
+      <h2>Unlock your dashboard</h2>
+      <p class="stat-label">Select a plan to unlock follow-ups, reporting, and your portal data.</p>
+      <a class="cta" href="pricing.html">View plans</a>
     </section>
 
-    <section class="split" style="margin-top: 24px;">
-      <div class="card">
-        <h2>Recent activity</h2>
-        <ul class="list">
-          <li>
-            <div>
-              <strong>Invoice #4821 — Follow-up sent</strong>
-              <span class="stat-label">Acme Roofing · 2 hours ago</span>
-            </div>
-            <span class="pill">Email</span>
-          </li>
-          <li>
-            <div>
-              <strong>Invoice #4793 — Promise to pay</strong>
-              <span class="stat-label">Blue Ridge HVAC · Today</span>
-            </div>
-            <span class="pill">Text</span>
-          </li>
-          <li>
-            <div>
-              <strong>Invoice #4760 — Dispute logged</strong>
-              <span class="stat-label">Midtown Builders · Yesterday</span>
-            </div>
-            <span class="pill">Review</span>
-          </li>
-        </ul>
-      </div>
-      <div class="card">
-        <h2>Invoices due soon</h2>
-        <ul class="list">
-          <li>
-            <div>
-              <strong>#4872 · $6,200</strong>
-              <span class="stat-label">Due in 3 days · Summit Concrete</span>
-            </div>
-            <span class="pill">Pending</span>
-          </li>
-          <li>
-            <div>
-              <strong>#4851 · $4,050</strong>
-              <span class="stat-label">Due in 5 days · Ridgeway Glass</span>
-            </div>
-            <span class="pill">Pending</span>
-          </li>
-          <li>
-            <div>
-              <strong>#4830 · $9,880</strong>
-              <span class="stat-label">Due in 6 days · Harbor Electric</span>
-            </div>
-            <span class="pill">Pending</span>
-          </li>
-        </ul>
-      </div>
-    </section>
+    <div class="locked-content">
+      <section class="grid" style="margin-top: 24px;">
+        <div class="card">
+          <p class="stat-value">$42,800</p>
+          <div class="stat-label">Recovered this month</div>
+          <div class="pill" style="margin-top: 12px;">+18% vs. last month</div>
+        </div>
+        <div class="card">
+          <p class="stat-value">17</p>
+          <div class="stat-label">Invoices due this week</div>
+          <div class="pill" style="margin-top: 12px;">8 follow-ups scheduled</div>
+        </div>
+        <div class="card">
+          <p class="stat-value">9</p>
+          <div class="stat-label">Promises to pay</div>
+          <div class="pill" style="margin-top: 12px;">Next check-in: Thu</div>
+        </div>
+        <div class="card">
+          <p class="stat-value">4</p>
+          <div class="stat-label">Disputes in review</div>
+          <div class="pill" style="margin-top: 12px;">2 awaiting docs</div>
+        </div>
+      </section>
+
+      <section class="split" style="margin-top: 24px;">
+        <div class="card">
+          <h2>Recent activity</h2>
+          <ul class="list">
+            <li>
+              <div>
+                <strong>Invoice #4821 — Follow-up sent</strong>
+                <span class="stat-label">Acme Roofing · 2 hours ago</span>
+              </div>
+              <span class="pill">Email</span>
+            </li>
+            <li>
+              <div>
+                <strong>Invoice #4793 — Promise to pay</strong>
+                <span class="stat-label">Blue Ridge HVAC · Today</span>
+              </div>
+              <span class="pill">Text</span>
+            </li>
+            <li>
+              <div>
+                <strong>Invoice #4760 — Dispute logged</strong>
+                <span class="stat-label">Midtown Builders · Yesterday</span>
+              </div>
+              <span class="pill">Review</span>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Invoices due soon</h2>
+          <ul class="list">
+            <li>
+              <div>
+                <strong>#4872 · $6,200</strong>
+                <span class="stat-label">Due in 3 days · Summit Concrete</span>
+              </div>
+              <span class="pill">Pending</span>
+            </li>
+            <li>
+              <div>
+                <strong>#4851 · $4,050</strong>
+                <span class="stat-label">Due in 5 days · Ridgeway Glass</span>
+              </div>
+              <span class="pill">Pending</span>
+            </li>
+            <li>
+              <div>
+                <strong>#4830 · $9,880</strong>
+                <span class="stat-label">Due in 6 days · Harbor Electric</span>
+              </div>
+              <span class="pill">Pending</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
   </div>
 
   <script>
-    // Initialize Supabase
     const { createClient } = supabase;
     const supabaseUrl = 'https://qvgshetcdvyticehwqfu.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2Z3NoZXRjZHZ5dGljZWh3cWZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MTM2OTQsImV4cCI6MjA4Njk4OTY5NH0.Go1d3KdroHX-Gnm-4H2LTKU80ZCXtD0E8rDbyuhpeQs';
@@ -205,13 +241,12 @@
     async function checkAuth() {
       try {
         const { data: { user } } = await supabaseClient.auth.getUser();
-        
+
         if (!user) {
           window.location.href = 'login.html';
           return;
         }
 
-        // User is authenticated, show their email
         document.getElementById('user-email').textContent = user.email;
       } catch (error) {
         console.error('Auth check error:', error);
@@ -219,7 +254,6 @@
       }
     }
 
-    // Logout handler
     document.getElementById('logout-btn').addEventListener('click', async (e) => {
       e.preventDefault();
       try {
@@ -231,7 +265,6 @@
       }
     });
 
-    // Check auth on page load
     checkAuth();
   </script>
 </body>
