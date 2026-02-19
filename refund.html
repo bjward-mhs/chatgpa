@@ -24,7 +24,16 @@
     .container { max-width: 900px; margin: 0 auto; padding: 48px 20px; }
     header { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
     .brand { font-weight: 800; font-size: 1.6rem; }
-    .nav-link { color: var(--text); text-decoration: none; padding: 8px 12px; border-radius: 10px; border: 1px solid transparent; }
+    .nav-link {
+      color: var(--text);
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      line-height: 1;
+    }
     .nav-link:hover { border-color: var(--accent); }
     .card { margin-top: 32px; background: var(--card); border: 1px solid var(--border); padding: 24px; border-radius: 16px; }
     .muted { color: var(--muted); }
