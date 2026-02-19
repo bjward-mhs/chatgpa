@@ -113,10 +113,24 @@
       transform: translateY(-2px);
       box-shadow: 0 16px 36px rgba(34, 197, 94, 0.35);
     }
+    .cta:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
     .helper-links { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.95rem; }
     .helper-links a { color: var(--accent); text-decoration: none; }
     .tag { display: inline-block; background: #0b1220; border: 1px solid var(--border); padding: 6px 10px; border-radius: 999px; color: var(--muted); font-size: 0.9rem; }
+    .error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+    }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <div class="container">
@@ -133,6 +147,7 @@
         <span class="tag">Client Signup</span>
         <h1>Create your account.</h1>
         <p class="muted">Sign up to preview your dashboard. Full access unlocks after payment.</p>
+        <div id="error-message" class="error" style="display: none;"></div>
         <form id="signup-form">
           <div>
             <label for="email">Email address</label>
@@ -146,7 +161,7 @@
             <input id="tos" name="tos" type="checkbox" required />
             <span>I agree to the <a href="terms.html">Terms of Service</a>, <a href="dpa.html">Data Processing Addendum</a>, <a href="privacy.html">Privacy Policy</a>, and <a href="refund.html">Refund Policy</a>.</span>
           </label>
-          <button class="cta" type="submit">Continue to dashboard</button>
+          <button class="cta" type="submit" id="submit-btn">Continue to dashboard</button>
         </form>
         <div class="helper-links" style="margin-top: 16px;">
           <a href="login.html">Already have access?</a>
@@ -167,10 +182,60 @@
   </div>
 
   <script>
+    const { createClient } = supabase;
+    const supabaseUrl = 'https://qvgshetcdvyticehwqfu.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2Z3NoZXRjZHZ5dGljZWh3cWZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MTM2OTQsImV4cCI6MjA4Njk4OTY5NH0.Go1d3KdroHX-Gnm-4H2LTKU80ZCXtD0E8rDbyuhpeQs';
+    const supabaseClient = createClient(supabaseUrl, supabaseKey);
+
     const form = document.getElementById('signup-form');
-    form.addEventListener('submit', (event) => {
+    const errorDiv = document.getElementById('error-message');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      window.location.href = 'portal.html';
+      errorDiv.style.display = 'none';
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Creating account...';
+
+      try {
+        const { data, error } = await supabaseClient.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              paid: false
+            }
+          }
+        });
+
+        if (error) {
+          errorDiv.textContent = error.message;
+          errorDiv.style.display = 'block';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Continue to dashboard';
+          return;
+        }
+
+        if (data?.session) {
+          window.location.href = 'portal.html';
+          return;
+        }
+
+        errorDiv.textContent = 'Check your email to confirm your account, then sign in.';
+        errorDiv.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Continue to dashboard';
+      } catch (err) {
+        errorDiv.textContent = 'Something went wrong. Please try again.';
+        errorDiv.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Continue to dashboard';
+        console.error('Signup error:', err);
+      }
     });
   </script>
 </body>
