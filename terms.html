@@ -37,6 +37,12 @@
     .nav-link:hover { border-color: var(--accent); }
     .card { margin-top: 32px; background: var(--card); border: 1px solid var(--border); padding: 24px; border-radius: 16px; }
     .muted { color: var(--muted); }
+    .terms-meta { display: grid; gap: 4px; margin-bottom: 24px; }
+    .terms-meta span { color: var(--muted); }
+    h2 { margin-top: 24px; margin-bottom: 8px; font-size: 1.2rem; }
+    ol { padding-left: 20px; margin: 0; }
+    ul { padding-left: 20px; margin: 8px 0 0; }
+    li { margin-bottom: 8px; }
   </style>
 </head>
 <body>
@@ -47,7 +53,107 @@
     </header>
     <section class="card">
       <h1>Terms of Service</h1>
-      <p class="muted">Content coming soon.</p>
+      <div class="terms-meta">
+        <span>Effective Date: February 19th, 2026</span>
+        <span>Operator: Brayden Ward</span>
+        <span>Contact: fetchrevenue@gmail.com</span>
+        <span>Location: Virginia, United States</span>
+      </div>
+      <ol>
+        <li>
+          <h2>Service Description</h2>
+          <p>This software provides invoice tracking visibility and automated reminder follow-ups. It does not process payments, collect funds, or guarantee invoice collection.</p>
+          <p>Users are solely responsible for managing their own billing, collections, and financial decisions.</p>
+        </li>
+        <li>
+          <h2>Eligibility</h2>
+          <p>This service is intended for business use (B2B). By using the service, you represent that you are operating in a business capacity.</p>
+        </li>
+        <li>
+          <h2>Accounts</h2>
+          <p>Users must create an account using a valid email address.</p>
+          <p>Accounts may be terminated:</p>
+          <ul>
+            <li>Upon user request</li>
+            <li>If payment is not received within 30 days of signup</li>
+            <li>If subscription payments are more than 14 days overdue</li>
+            <li>For violation of these Terms</li>
+          </ul>
+        </li>
+        <li>
+          <h2>Payments</h2>
+          <p>Subscriptions are billed monthly in USD via Stripe.</p>
+          <p>Available tiers:</p>
+          <ul>
+            <li>$399/month</li>
+            <li>$699/month</li>
+            <li>$999/month</li>
+          </ul>
+          <p>Payments are recurring unless cancelled.</p>
+          <p>Failure to pay may result in suspension or termination.</p>
+          <p>No late fees are charged.</p>
+        </li>
+        <li>
+          <h2>Refund Policy</h2>
+          <p>Refunds are not provided except in cases of duplicate charges or verified billing errors.</p>
+          <p>Access is granted immediately upon payment. By subscribing, you acknowledge that you waive standard refund expectations for digital products.</p>
+        </li>
+        <li>
+          <h2>No Financial Advice / No Guarantees</h2>
+          <p>The service does not provide financial advice.</p>
+          <p>The Operator makes no guarantees that:</p>
+          <ul>
+            <li>Invoices will be paid</li>
+            <li>Reminders will result in payment</li>
+            <li>Revenue will increase</li>
+            <li>Notifications will never fail or be delayed</li>
+          </ul>
+          <p>Users assume full responsibility for their financial operations.</p>
+        </li>
+        <li>
+          <h2>Prohibited Conduct</h2>
+          <p>Users may not:</p>
+          <ul>
+            <li>Resell access to the software</li>
+            <li>Share login credentials</li>
+            <li>Reverse engineer the software</li>
+            <li>Scrape or copy platform content</li>
+            <li>Reproduce or redistribute any portion of the software</li>
+          </ul>
+        </li>
+        <li>
+          <h2>Intellectual Property</h2>
+          <p>All software, code, and platform content are owned exclusively by Brayden Ward.</p>
+          <p>Users retain ownership of invoice data entered into their private dashboard.</p>
+        </li>
+        <li>
+          <h2>Limitation of Liability</h2>
+          <p>To the maximum extent permitted by law:</p>
+          <ul>
+            <li>The Operator shall not be liable for indirect, incidental, consequential, or lost profit damages.</li>
+            <li>Total liability shall not exceed the total subscription fees paid by the user in the three (3) months preceding the claim.</li>
+          </ul>
+        </li>
+        <li>
+          <h2>Data &amp; Security</h2>
+          <p>The platform uses Supabase for backend infrastructure and Stripe for payment processing.</p>
+          <p>In the event of a data breach affecting user data:</p>
+          <ul>
+            <li>Affected users will be notified within 72 hours</li>
+            <li>Users will be informed of the nature of the breach</li>
+            <li>Guidance for credential resets will be provided</li>
+          </ul>
+        </li>
+        <li>
+          <h2>Termination</h2>
+          <p>Users may cancel at any time. Access continues until the end of the billing cycle.</p>
+          <p>No prorated refunds.</p>
+        </li>
+        <li>
+          <h2>Governing Law</h2>
+          <p>These Terms are governed by the laws of the Commonwealth of Virginia, United States.</p>
+        </li>
+      </ol>
     </section>
   </div>
 </body>
