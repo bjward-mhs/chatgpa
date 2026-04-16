@@ -7,29 +7,39 @@
   <style>
     html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
     canvas { display: block; width: 100vw; height: 100vh; background: #000; }
-    #err {
+    #err, #dbg {
       position: fixed; left: 10px; top: 10px;
-      padding: 10px; max-width: 90vw;
-      background: rgba(140,0,0,0.85); color: #fff;
+      padding: 10px; max-width: 92vw;
       font: 14px system-ui, sans-serif; white-space: pre-wrap;
-      display: none; border-radius: 8px;
+      border-radius: 8px;
     }
+    #err { background: rgba(140,0,0,0.85); color: #fff; display:none; top: 10px; }
+    #dbg { background: rgba(0,0,0,0.55); color: #fff; top: 10px; }
   </style>
 </head>
 <body>
   <div id="err"></div>
-  <canvas id="canvas"></canvas>
+  <div id="dbg">loading…</div>
+  <canvas id="canvas" tabindex="0"></canvas>
 
   <script>
-    // Show JS errors on the page (Chromebook-friendly)
-    const box = document.getElementById("err");
+    const err = document.getElementById("err");
+    const dbg = document.getElementById("dbg");
     window.addEventListener("error", (e) => {
-      box.style.display = "block";
-      box.textContent = "JS error:\\n" + (e.message || e.error || "unknown") +
-        (e.filename ? `\\n${e.filename}:${e.lineno}:${e.colno}` : "");
+      err.style.display = "block";
+      err.textContent = "JS error:\n" + (e.message || e.error || "unknown") +
+        (e.filename ? `\n${e.filename}:${e.lineno}:${e.colno}` : "");
+    });
+
+    // show that key events are being received
+    let lastKey = "(none)";
+    window.addEventListener("keydown", (e) => {
+      lastKey = e.code;
+      dbg.textContent = "keydown seen: " + lastKey;
     });
   </script>
 
-  <script defer src="./main.js"></script>
+  <!-- IMPORTANT: cache-bust while debugging -->
+  <script defer src="./main.js?v=2"></script>
 </body>
 </html>
